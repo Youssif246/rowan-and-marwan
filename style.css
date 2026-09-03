@@ -1,0 +1,1590 @@
+/* ==========================================================================
+   LUXURY WEDDING LANDING PAGE - STYLES
+   Aesthetic: Premium Editorial, Sophisticated, Warm Ivory & Champagne Gold
+   Typography: Alexandria Only
+   ========================================================================== */
+
+/* 1. DESIGN SYSTEM & CUSTOM PROPERTIES */
+:root {
+    /* Color Palette */
+    --color-ivory: #FAF7F2;          /* Main background, warm and clean */
+    --color-ivory-deep: #F3ECE0;     /* Textured or darker background fields */
+    --color-champagne: #F2EDE4;      /* Soft beige background */
+    --color-gold: #C5A880;           /* Premium soft gold accent */
+    --color-gold-muted: #DBCBB5;     /* Lighter gold for dividers & borders */
+    --color-gold-bright: #E2C292;    /* Highlight gold */
+    --color-bronze: #3E2013;         /* Dark chocolate/bronze for text & luxury headers */
+    --color-bronze-light: #5E3D2F;   /* Lighter bronze for secondary copy */
+    --color-blush: #F5E6E3;          /* Warm accent blush */
+    --color-white: #FFFFFF;
+    
+    /* Typography */
+@media (min-width: 769px) {
+    .hero-container {
+        min-height: 620px;
+    }
+
+    .hero-invitation-card {
+        width: min(78vw, 760px);
+        min-height: 560px;
+        padding: 4.75rem 3.5rem 5.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .hero-content {
+        width: 100%;
+        gap: 0;
+    }
+
+    .hero-emblem {
+        width: 78px;
+        height: 78px;
+        margin-bottom: 1.75rem;
+    }
+
+    .hero-subtitle {
+        margin-bottom: 1.5rem;
+    }
+
+    .hero-title {
+        max-width: 100%;
+        margin-bottom: 2rem;
+        font-size: clamp(3.5rem, 5vw, 4.25rem);
+        gap: clamp(0.75rem, 1.5vw, 1.5rem);
+        line-height: 1;
+        white-space: nowrap;
+    }
+
+    .name-highlight {
+        font-size: clamp(4rem, 5.5vw, 4.8rem);
+    }
+
+    .ampersand {
+        font-size: clamp(2.5rem, 3.5vw, 3rem);
+    }
+
+    .hero-date {
+        margin-bottom: 0.85rem;
+        font-size: clamp(1.3rem, 1.8vw, 1.5rem);
+        line-height: 1.3;
+    }
+
+    .hero-arabic-date {
+        line-height: 1.5;
+    }
+
+    .hero-scroll-indicator {
+        bottom: 2rem;
+    }
+}
+    --font-primary: 'Alexandria', sans-serif;
+    
+    /* Spacing & Layout */
+    --transition-slow: 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+    --transition-medium: 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    --transition-fast: 0.3s ease;
+    
+    --container-width: 1200px;
+    --container-padding: 2rem;
+}
+
+/* 2. BASE STYLES & RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+    background-color: var(--color-ivory);
+    color: var(--color-bronze-light);
+    font-family: var(--font-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    overflow-x: hidden;
+    line-height: 1.8;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: var(--transition-fast);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.container {
+    width: 100%;
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+}
+
+/* 3. LUXURY INTERACTIVE ENVELOPE PRELOADER */
+.preloader-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-ivory);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    /* Clean transition when the preloader splits and drops/fades away */
+    transition: transform 1.2s cubic-bezier(0.85, 0, 0.15, 1), 
+                opacity 1.2s cubic-bezier(0.85, 0, 0.15, 1),
+                visibility 1.2s;
+}
+
+.preloader-container.fade-out {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* Perspective wrapper for 3D card envelope opening */
+.envelope-wrapper {
+    perspective: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+    width: 100%;
+    max-width: 500px;
+    padding: 2rem;
+    transition: opacity 0.8s ease 1.6s, transform 0.8s ease 1.6s;
+}
+
+.preloader-container.fade-out .envelope-wrapper {
+    opacity: 0;
+    transform: translateY(40px);
+}
+
+.envelope {
+    position: relative;
+    width: 100%;
+    height: 320px;
+    background-color: #E6DFD3; /* Champagne beige envelope body */
+    box-shadow: 0 20px 50px rgba(62, 32, 19, 0.12);
+    transform-style: preserve-3d;
+}
+
+/* Envelope Flaps base */
+.envelope-flap {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 3;
+}
+
+/* Top flap triangle */
+.top-flap {
+    clip-path: polygon(0 0, 100% 0, 50% 55%);
+    background-color: #DFD8C9;
+    transform-origin: top;
+    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1) 0.3s, z-index 0.1s linear 0.7s;
+    z-index: 5; /* Sits on top of wax seal initially */
+}
+
+/* Bottom flap */
+.bottom-flap {
+    clip-path: polygon(0 100%, 100% 100%, 50% 55%);
+    background-color: #E3DCD0;
+    z-index: 4;
+}
+
+/* Side Flaps */
+.left-flap {
+    clip-path: polygon(0 0, 0 100%, 50% 55%);
+    background-color: #DDD6C9;
+    z-index: 4;
+}
+
+.right-flap {
+    clip-path: polygon(100% 0, 100% 100%, 50% 55%);
+    background-color: #DDD6C9;
+    z-index: 4;
+}
+
+/* Invitation card nested inside envelope body */
+.envelope-card {
+    position: absolute;
+    width: 92%;
+    height: 90%;
+    top: 5%;
+    left: 4%;
+    background-color: var(--color-white);
+    box-shadow: 0 4px 15px rgba(62, 32, 19, 0.05);
+    z-index: 2; /* Sits behind flaps, in front of back envelope wall */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transform: translateY(0);
+    transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1) 0.8s;
+}
+
+.envelope-card-border {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    bottom: 10px;
+    left: 10px;
+    border: 1px solid var(--color-gold-muted);
+}
+
+.envelope-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.envelope-card-monogram {
+    font-family: 'Pinyon Script', cursive;
+    font-size: 3rem;
+    font-weight: 400;
+    color: var(--color-bronze);
+    letter-spacing: normal;
+}
+
+.envelope-card-title {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--color-gold);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+
+/* Wax Seal Lock in the center */
+.wax-seal {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    width: 66px;
+    height: 66px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #E2C292 0%, #C5A880 70%, #A4875D 100%);
+    border: 2px solid rgba(62, 32, 19, 0.15);
+    box-shadow: 0 4px 15px rgba(62, 32, 19, 0.35);
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                opacity 0.4s ease, 
+                box-shadow 0.4s ease;
+}
+
+.wax-seal:hover {
+    transform: translate(-50%, -50%) scale(1.08);
+    box-shadow: 0 6px 20px rgba(62, 32, 19, 0.45);
+}
+
+.wax-seal:active {
+    transform: translate(-50%, -50%) scale(0.95);
+}
+
+.wax-seal-inner {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 1px dashed rgba(250, 247, 242, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.seal-initials {
+    font-family: var(--font-primary);
+    font-size: 1.15rem;
+    font-weight: 300;
+    color: var(--color-white);
+    text-shadow: 0 1.5px 3px rgba(62, 32, 19, 0.5);
+}
+
+.envelope-instruction {
+    font-size: 0.8rem;
+    color: var(--color-gold);
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-align: center;
+    animation: instructionsPulse 2s infinite ease-in-out;
+}
+
+@keyframes instructionsPulse {
+    0% { opacity: 0.5; }
+    50% { opacity: 1; }
+    100% { opacity: 0.5; }
+}
+
+/* 3.1 ACTIVE ENVELOPE OPENING STATES */
+.envelope-wrapper.open .top-flap {
+    transform: rotateX(180deg);
+    z-index: 1; /* Move behind card as flap finishes flip */
+}
+
+.envelope-wrapper.open .wax-seal {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.envelope-wrapper.open .envelope-card {
+    transform: translateY(-130px);
+}
+
+/* 4. TYPOGRAPHY SYSTEM */
+h1, h2, h3, h4 {
+    color: var(--color-bronze);
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    line-height: 1.3;
+}
+
+/* 5. COMPONENT STYLES */
+
+/* Section Headers */
+.section-header {
+    text-align: center;
+    margin-bottom: 4.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+.section-subtitle {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    color: var(--color-gold);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.section-title {
+    font-size: 2.25rem;
+    font-weight: 400;
+    color: var(--color-bronze);
+    position: relative;
+}
+
+.section-header.dark-text-theme .section-title {
+    color: var(--color-ivory);
+}
+
+.section-header.dark-text-theme .section-subtitle {
+    color: var(--color-gold-bright);
+}
+
+/* Luxury Divider */
+.luxury-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.divider-line {
+    height: 1px;
+    width: 60px;
+    background: linear-gradient(90deg, transparent, var(--color-gold-muted), transparent);
+}
+
+.divider-diamond {
+    width: 6px;
+    height: 6px;
+    background-color: var(--color-gold);
+    transform: rotate(45deg);
+}
+
+.section-header.dark-text-theme .divider-line {
+    background: linear-gradient(90deg, transparent, var(--color-gold-bright), transparent);
+}
+
+.section-header.dark-text-theme .divider-diamond {
+    background-color: var(--color-gold-bright);
+}
+
+
+/* Section Textures */
+.section-texture {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.06;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ==========================================================================
+   6. SPECIFIC SECTIONS
+   ========================================================================== */
+
+/* 6.1 HERO SECTION */
+.hero-container {
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+}
+
+.hero-background-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.hero-bg-image {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transform: scale(1);
+}
+
+/* Zoom background slow animation once hero loads */
+.hero-container.loaded .hero-bg-image {
+    animation: kenBurns 24s infinite alternate ease-in-out;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Soft dark vignette on edges to frame the card beautifully */
+    background: radial-gradient(
+        circle, 
+        rgba(250, 247, 242, 0.1) 0%, 
+        rgba(250, 247, 242, 0.3) 40%,
+        rgba(62, 32, 19, 0.15) 100%
+    );
+    z-index: 2;
+}
+
+/* Premium Frosted Glass Invitation Card */
+.hero-invitation-card {
+    position: relative;
+    z-index: 3;
+    width: 90%;
+    max-width: 650px;
+    background-color: rgba(250, 247, 242, 0.86);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    padding: 4.5rem 3rem;
+    box-shadow: 0 30px 70px rgba(62, 32, 19, 0.08);
+    opacity: 0;
+    transform: scale(0.96) translateY(20px);
+    transition: opacity 1.6s cubic-bezier(0.25, 1, 0.5, 1), 
+                transform 1.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.hero-container.loaded .hero-invitation-card {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+/* Double gold border inside the invitation card */
+.hero-card-border-outer {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    bottom: 15px;
+    left: 15px;
+    border: 1px solid var(--color-gold-muted);
+    pointer-events: none;
+}
+
+.hero-card-border-inner {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    bottom: 6px;
+    left: 6px;
+    border: 1px solid var(--color-gold);
+    pointer-events: none;
+}
+
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Monogram Emblem */
+.hero-emblem {
+    margin-bottom: 2rem;
+    width: 70px;
+    height: 70px;
+}
+
+.emblem-svg {
+    width: 100%;
+    height: 100%;
+}
+
+.hero-subtitle {
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.4em;
+    color: var(--color-gold);
+    margin-bottom: 2rem;
+    display: block;
+}
+
+/* Massively elegant legible name title */
+.hero-title {
+    font-size: 4.25rem;
+    font-weight: 200;
+    color: var(--color-bronze);
+    margin-bottom: 2.25rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.name-highlight {
+    font-family: 'Pinyon Script', cursive;
+    font-size: 4.8rem;
+    font-weight: 400;
+}
+
+.ampersand {
+    font-family: 'Pinyon Script', cursive;
+    font-size: 3rem;
+    color: var(--color-gold);
+    font-weight: 400;
+    margin: 0 0.5rem;
+}
+
+.hero-date {
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: 0.25em;
+    color: var(--color-gold);
+    margin-bottom: 0.5rem;
+}
+
+.hero-arabic-date {
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: var(--color-bronze-light);
+    letter-spacing: 0.02em;
+}
+
+/* Hero Scroll Indicator */
+.hero-scroll-indicator {
+    position: absolute;
+    bottom: 3.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    z-index: 3;
+}
+
+.scroll-text {
+    font-size: 0.7rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    color: var(--color-bronze-light);
+}
+
+.scroll-arrow {
+    width: 1px;
+    height: 40px;
+    background-color: var(--color-gold-muted);
+    position: relative;
+    overflow: hidden;
+}
+
+.scroll-arrow::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-bronze);
+    animation: scrollIndicatorAnimation 2.2s infinite ease-in-out;
+}
+
+@keyframes scrollIndicatorAnimation {
+    0% { transform: translateY(-100%); }
+    80% { transform: translateY(100%); }
+    100% { transform: translateY(100%); }
+}
+
+@keyframes kenBurns {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.08); }
+}
+
+/* 6.2 DETAILS SECTION */
+.details-container {
+    position: relative;
+    padding: 9rem 0;
+    background-color: var(--color-ivory);
+    overflow: hidden;
+}
+
+.details-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.wedding-quote {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--color-bronze);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.wedding-invitation-text {
+    font-size: 1.05rem;
+    font-weight: 300;
+    color: var(--color-bronze-light);
+    max-width: 680px;
+    margin: 0 auto 5.5rem;
+    line-height: 2;
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+}
+
+.detail-card {
+    background-color: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(197, 168, 128, 0.2);
+    padding: 3.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: var(--transition-medium);
+}
+
+.detail-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--color-gold);
+    box-shadow: 0 10px 30px rgba(62, 32, 19, 0.03);
+    background-color: var(--color-white);
+}
+
+.card-icon {
+    color: var(--color-gold);
+    width: 32px;
+    height: 32px;
+    margin-bottom: 1.75rem;
+}
+
+.detail-card h3 {
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: var(--color-bronze);
+    margin-bottom: 1.25rem;
+}
+
+.detail-card time,
+.detail-card .detail-main {
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: var(--color-bronze-light);
+    margin-bottom: 0.5rem;
+}
+
+.detail-card .sub-detail {
+    font-size: 0.8rem;
+    color: rgba(62, 32, 19, 0.65);
+}
+
+/* 6.3 COUNTDOWN SECTION */
+.countdown-container {
+    position: relative;
+    padding: 8.5rem 0;
+    background-color: var(--color-bronze); /* Luxury high-contrast section background */
+    overflow: hidden;
+}
+
+.countdown-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(197, 168, 128, 0.15) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.countdown-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.countdown-grid {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    max-width: 750px;
+    margin: 0 auto;
+    direction: ltr; /* Keeps countdown reading correctly left-to-right */
+}
+
+.countdown-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 110px;
+}
+
+.countdown-number-container {
+    background-color: rgba(250, 247, 242, 0.05);
+    border: 1px solid rgba(219, 203, 181, 0.25);
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+    overflow: hidden;
+    position: relative;
+}
+
+.countdown-number {
+    font-size: 2.75rem;
+    font-weight: 200;
+    color: var(--color-gold-bright);
+    font-family: var(--font-primary);
+    line-height: 1;
+    letter-spacing: 0;
+    display: inline-block;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Animation for rolling digits */
+.digit-roll {
+    animation: rollAnim 0.5s ease-out;
+}
+
+@keyframes rollAnim {
+    0% { transform: translateY(-40px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+.countdown-label {
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    color: var(--color-gold-muted);
+}
+
+.countdown-separator {
+    font-size: 2rem;
+    font-weight: 100;
+    color: rgba(219, 203, 181, 0.4);
+    margin-bottom: 2rem;
+}
+
+/* 6.4 MAP SECTION */
+.map-container {
+    position: relative;
+    padding: 9rem 0;
+    background-color: var(--color-ivory);
+    overflow: hidden;
+}
+
+.map-content {
+    position: relative;
+    z-index: 2;
+}
+
+/* Premium Map layout with embedded Google Map frame */
+.map-embedded-box {
+    background-color: var(--color-white);
+    border: 1px solid rgba(197, 168, 128, 0.15);
+    max-width: 900px;
+    margin: 0 auto;
+    box-shadow: 0 15px 45px rgba(62, 32, 19, 0.02);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.map-info-strip {
+    padding: 2.5rem 3rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(197, 168, 128, 0.10);
+    background-color: var(--color-ivory);
+}
+
+.map-info-strip .venue-name {
+    font-size: 1.45rem;
+    font-weight: 400;
+    color: var(--color-bronze);
+    margin-bottom: 0.5rem;
+}
+
+.map-info-strip .venue-address {
+    font-size: 0.9rem;
+    color: var(--color-gold);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+}
+
+.map-iframe-frame {
+    position: relative;
+    padding: 1.5rem;
+    background-color: var(--color-white);
+}
+
+.map-iframe-border {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    bottom: 24px;
+    left: 24px;
+    border: 1px solid rgba(197, 168, 128, 0.2);
+    pointer-events: none;
+    z-index: 2;
+}
+
+.map-iframe-element {
+    border: none;
+    display: block;
+    width: 100%;
+    z-index: 1;
+    /* Soft sepia tint to blend iframe color with the warm luxury theme */
+    filter: sepia(12%) contrast(96%) brightness(98%);
+    transition: var(--transition-medium);
+}
+
+.map-iframe-frame:hover .map-iframe-element {
+    filter: none;
+}
+
+/* 6.5 RSVP SECTION */
+.rsvp-container {
+    position: relative;
+    padding: 9rem 0 10rem;
+    background: linear-gradient(135deg, var(--color-champagne), var(--color-ivory));
+    overflow: hidden;
+}
+
+.rsvp-container::before,
+.rsvp-container::after {
+    content: '';
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    border: 1px solid rgba(197, 168, 128, 0.18);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.rsvp-container::before {
+    top: -150px;
+    right: -100px;
+}
+
+.rsvp-container::after {
+    bottom: -170px;
+    left: -110px;
+}
+
+.rsvp-content {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+}
+
+.rsvp-header {
+    margin-bottom: 3.5rem;
+}
+
+.rsvp-header .section-title {
+    font-weight: 400;
+}
+
+.rsvp-subtitle {
+    margin: 1.5rem auto 0;
+    color: var(--color-bronze-light);
+    font-size: 0.95rem;
+    font-weight: 300;
+}
+
+.rsvp-form {
+    max-width: 760px;
+    margin: 0 auto;
+}
+
+.rsvp-choice-group {
+    border: 0;
+    padding: 0;
+    margin: 0;
+}
+
+.rsvp-choice-group legend {
+    width: 100%;
+    margin-bottom: 1.5rem;
+    color: var(--color-bronze);
+    font-size: 1.25rem;
+    font-weight: 400;
+    text-align: center;
+}
+
+.rsvp-choices {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.rsvp-choice {
+    position: relative;
+    cursor: pointer;
+}
+
+.rsvp-choice input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.rsvp-choice-content {
+    min-height: 116px;
+    padding: 1.1rem 1rem;
+    border: 1px solid rgba(197, 168, 128, 0.35);
+    background-color: rgba(255, 255, 255, 0.38);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.7rem;
+    color: var(--color-bronze-light);
+    font-size: 0.88rem;
+    line-height: 1.8;
+    text-align: center;
+    transition: var(--transition-fast);
+}
+
+.rsvp-choice:hover .rsvp-choice-content,
+.rsvp-choice input:focus-visible + .rsvp-choice-content {
+    border-color: var(--color-gold);
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 8px 25px rgba(62, 32, 19, 0.06);
+}
+
+.rsvp-choice input:checked + .rsvp-choice-content {
+    border-color: var(--color-gold);
+    background-color: var(--color-white);
+    box-shadow: inset 0 -3px 0 var(--color-gold), 0 12px 30px rgba(62, 32, 19, 0.07);
+    color: var(--color-bronze);
+}
+
+.rsvp-choice-icon {
+    width: 30px;
+    height: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(197, 168, 128, 0.28);
+    border-radius: 50%;
+    background-color: rgba(250, 247, 242, 0.75);
+    font-size: 1.15rem;
+    line-height: 1;
+}
+
+.rsvp-choice input:checked + .rsvp-choice-content .rsvp-choice-icon {
+    border-color: var(--color-gold-muted);
+    background-color: var(--color-champagne);
+}
+
+.rsvp-fields {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transform: translateY(12px);
+    transition: max-height 0.7s ease, opacity 0.5s ease, transform 0.7s ease, margin-top 0.7s ease;
+}
+
+.rsvp-fields.is-visible {
+    max-height: 420px;
+    margin-top: 2.5rem;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.rsvp-field {
+    text-align: right;
+}
+
+.rsvp-field label {
+    display: block;
+    margin-bottom: 0.6rem;
+    color: var(--color-bronze);
+    font-size: 0.85rem;
+}
+
+.rsvp-field input,
+.rsvp-field select {
+    width: 100%;
+    min-height: 52px;
+    padding: 0.75rem 1rem;
+    border: 1px solid rgba(197, 168, 128, 0.35);
+    border-radius: 0;
+    outline: 0;
+    background-color: rgba(255, 255, 255, 0.62);
+    color: var(--color-bronze-light);
+    font: inherit;
+    font-size: 0.85rem;
+    text-align: right;
+    transition: var(--transition-fast);
+}
+
+.rsvp-field input::placeholder {
+    color: rgba(62, 32, 19, 0.45);
+}
+
+.rsvp-field input:focus,
+.rsvp-field select:focus {
+    border-color: var(--color-gold);
+    background-color: var(--color-white);
+    box-shadow: 0 0 0 3px rgba(197, 168, 128, 0.12);
+}
+
+.rsvp-submit {
+    grid-column: 1 / -1;
+    justify-self: center;
+    min-width: 230px;
+    min-height: 54px;
+    margin-top: 0.75rem;
+    padding: 0.85rem 1.75rem;
+    border: 1px solid var(--color-gold);
+    background-color: var(--color-bronze);
+    color: var(--color-ivory);
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.85rem;
+    transition: var(--transition-fast);
+}
+
+.rsvp-submit:hover:not(:disabled) {
+    background-color: var(--color-gold);
+    color: var(--color-bronze);
+    transform: translateY(-2px);
+}
+
+.rsvp-submit:disabled {
+    cursor: wait;
+    opacity: 0.65;
+}
+
+.rsvp-error {
+    grid-column: 1 / -1;
+    min-height: 1.5rem;
+    margin: 0;
+    color: #8a3f35;
+    font-size: 0.78rem;
+    text-align: center;
+}
+
+.rsvp-success {
+    max-width: 620px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem;
+    border-top: 1px solid var(--color-gold-muted);
+    border-bottom: 1px solid var(--color-gold-muted);
+    text-align: center;
+    animation: rsvpSuccessIn 0.8s ease both;
+}
+
+.rsvp-success[hidden] {
+    display: none;
+}
+
+.rsvp-success-mark {
+    display: block;
+    margin-bottom: 1rem;
+    color: var(--color-gold);
+    font-size: 2rem;
+}
+
+.rsvp-success h3 {
+    margin-bottom: 0.85rem;
+    font-size: 1.3rem;
+    font-weight: 400;
+}
+
+.rsvp-success p {
+    color: var(--color-bronze-light);
+    font-size: 0.9rem;
+    line-height: 2;
+}
+
+@keyframes rsvpSuccessIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 6.6 FOOTER */
+.footer-container {
+    position: relative;
+    padding: 6.5rem 0 5rem;
+    background-color: var(--color-champagne);
+}
+
+.footer-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.footer-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.footer-names {
+    font-family: 'Pinyon Script', cursive;
+    font-size: 2.75rem;
+    font-weight: 400;
+    color: var(--color-bronze);
+}
+
+.copyright {
+    font-size: 0.75rem;
+    color: rgba(62, 32, 19, 0.5);
+    letter-spacing: 0.05em;
+}
+
+.credits {
+    font-size: 0.75rem;
+    color: rgba(62, 32, 19, 0.6);
+    letter-spacing: 0.05em;
+}
+
+.credits a {
+    color: var(--color-gold);
+    font-weight: 400;
+}
+
+.credits a:hover {
+    color: var(--color-bronze);
+    text-decoration: underline;
+}
+
+/* ==========================================================================
+   7. SCROLL REVEALS & MOTION
+   ========================================================================== */
+
+/* Fade in up reveal class (IntersectionObserver base state) */
+.scroll-reveal, 
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(35px);
+    transition: opacity 1.3s cubic-bezier(0.25, 1, 0.5, 1), 
+                transform 1.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.scroll-reveal.is-visible,
+.fade-in-up.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Hero reveal animation triggers inside loaded container */
+.reveal-item {
+    opacity: 0;
+    transform: translateY(25px);
+    transition: opacity 1.3s cubic-bezier(0.25, 1, 0.5, 1), 
+                transform 1.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.hero-container.loaded .reveal-item {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.hero-content .reveal-item:nth-child(1) { transition-delay: 0.15s; }
+.hero-content .reveal-item:nth-child(2) { transition-delay: 0.35s; }
+.hero-content .reveal-item:nth-child(3) { transition-delay: 0.5s; }
+.hero-content .reveal-item:nth-child(4) { transition-delay: 0.65s; }
+.hero-content .reveal-item:nth-child(5) { transition-delay: 0.8s; }
+
+/* ==========================================================================
+   8. RESPONSIVE DESIGN (MEDIA QUERIES)
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+    html {
+        font-size: 15px;
+    }
+    
+    .details-grid {
+        gap: 1.5rem;
+    }
+    
+    .map-embedded-box {
+        max-width: 90%;
+    }
+}
+
+@media (max-width: 768px) {
+    html {
+        font-size: 14px;
+    }
+
+    .hero-container {
+        min-height: 100svh;
+        height: auto;
+        padding: 2rem 0 6rem;
+    }
+    
+    /* Hero mobile spacing */
+    .hero-title {
+        width: 100%;
+        font-size: clamp(2rem, 8vw, 3rem);
+        gap: 0.25rem 0.5rem;
+        flex-wrap: wrap;
+        line-height: 1;
+    }
+    
+    .name-highlight {
+        font-size: 3.5rem;
+    }
+    
+    .ampersand {
+        font-size: 2.25rem;
+        margin: 0 0.25rem;
+    }
+    
+    .hero-invitation-card {
+        width: min(86%, 650px);
+        padding: 3.5rem clamp(1.25rem, 5vw, 2rem);
+    }
+
+    .hero-date {
+        font-size: clamp(1.15rem, 4.5vw, 1.5rem);
+        letter-spacing: 0.18em;
+    }
+
+    .hero-arabic-date {
+        font-size: clamp(0.75rem, 3vw, 0.95rem);
+    }
+    
+    .hero-card-border-outer {
+        top: 10px;
+        right: 10px;
+        bottom: 10px;
+        left: 10px;
+    }
+    
+    /* Details Grid Mobile layout */
+    .details-grid {
+        grid-template-columns: 1fr;
+        max-width: 480px;
+        margin: 0 auto;
+        gap: 2rem;
+    }
+    
+    .detail-card {
+        padding: 3rem 1.5rem;
+    }
+    
+    /* Countdown mobile layout */
+    .countdown-grid {
+        gap: 1rem;
+        flex-wrap: wrap;
+        padding: 0 0.5rem;
+    }
+    
+    .countdown-item {
+        min-width: 80px;
+    }
+    
+    .countdown-number-container {
+        width: 75px;
+        height: 75px;
+        margin-bottom: 0.75rem;
+    }
+    
+    .countdown-number {
+        font-size: 2rem;
+    }
+    
+    .countdown-separator {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .map-info-strip {
+        padding: 2rem 1.5rem;
+    }
+
+    .map-info-strip .venue-name {
+        font-size: clamp(1.05rem, 4vw, 1.45rem);
+    }
+    
+    .map-iframe-frame {
+        padding: 0.75rem;
+    }
+    
+    .map-iframe-border {
+        top: 16px;
+        right: 16px;
+        bottom: 16px;
+        left: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .hero-container {
+        padding-top: 1rem;
+        padding-bottom: 5rem;
+    }
+
+    .hero-invitation-card {
+        width: calc(100% - 1.5rem);
+        padding: 2.75rem 1.25rem;
+    }
+
+    .hero-card-border-outer {
+        top: 8px;
+        right: 8px;
+        bottom: 8px;
+        left: 8px;
+    }
+
+    .hero-card-border-inner {
+        top: 5px;
+        right: 5px;
+        bottom: 5px;
+        left: 5px;
+    }
+
+    .hero-emblem {
+        width: 58px;
+        height: 58px;
+        margin-bottom: 1.25rem;
+    }
+
+    .hero-subtitle {
+        font-size: 0.7rem;
+        letter-spacing: 0.22em;
+        margin-bottom: 1.25rem;
+    }
+
+    .rsvp-container {
+        padding-top: 5.5rem;
+        padding-bottom: 6rem;
+    }
+
+    .rsvp-header {
+        margin-bottom: 2.5rem;
+    }
+
+    .rsvp-subtitle {
+        padding: 0 0.5rem;
+        font-size: 0.8rem;
+        line-height: 1.9;
+    }
+
+    .rsvp-choice-group legend {
+        margin-bottom: 1.25rem;
+        font-size: 1.05rem;
+    }
+
+    .rsvp-choices {
+        gap: 0.75rem;
+    }
+
+    .rsvp-choice-content {
+        min-height: 128px;
+        padding: 1rem 0.6rem;
+        font-size: 0.78rem;
+        line-height: 1.75;
+    }
+
+    .rsvp-choice-icon {
+        width: 28px;
+        height: 28px;
+        font-size: 1rem;
+    }
+
+    .rsvp-fields.is-visible {
+        margin-top: 2rem;
+    }
+
+    .rsvp-fields {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .rsvp-submit {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .hero-title {
+        font-size: clamp(1.85rem, 9vw, 2.2rem);
+        gap: 0.1rem 0.3rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .name-highlight {
+        font-size: clamp(2.25rem, 11vw, 2.85rem);
+    }
+    
+    .ampersand {
+        font-size: 1.85rem;
+        margin: 0;
+    }
+    
+    .hero-subtitle {
+        letter-spacing: 0.3em;
+    }
+    
+    .countdown-separator {
+        display: none; /* Hide separators on small screens to fit countdown neatly */
+    }
+    
+    .countdown-grid {
+        gap: 0.75rem;
+        padding: 0;
+    }
+    
+    .countdown-item {
+        min-width: 70px;
+    }
+    
+    .countdown-number-container {
+        width: min(17vw, 65px);
+        height: min(17vw, 65px);
+    }
+    
+    .countdown-number {
+        font-size: 1.75rem;
+    }
+
+    .hero-scroll-indicator {
+        bottom: 1.5rem;
+    }
+
+    .scroll-text {
+        font-size: 0.6rem;
+    }
+
+    .section-header {
+        margin-bottom: 2.75rem;
+    }
+
+    .section-title {
+        font-size: 1.75rem;
+    }
+
+    .wedding-invitation-text {
+        margin-bottom: 3rem;
+        font-size: 0.95rem;
+    }
+
+    .details-container,
+    .countdown-container,
+    .map-container {
+        padding-top: 5rem;
+        padding-bottom: 5rem;
+    }
+
+    .detail-card {
+        padding: 2.25rem 1rem;
+    }
+
+    .detail-card .detail-main {
+        max-width: 100%;
+        overflow-wrap: anywhere;
+        text-align: center;
+    }
+
+    .countdown-item {
+        min-width: calc(25% - 0.5rem);
+    }
+
+    .countdown-label {
+        font-size: 0.65rem;
+        letter-spacing: 0.08em;
+    }
+
+    .map-embedded-box {
+        max-width: 100%;
+    }
+
+    .map-info-strip {
+        padding: 1.5rem 1rem;
+    }
+
+    .map-info-strip .venue-name {
+        line-height: 1.4;
+    }
+
+    .map-iframe-element {
+        height: 300px;
+    }
+
+    .footer-container {
+        padding: 4.5rem 0 3.5rem;
+    }
+
+    .footer-names {
+        font-size: 2.25rem;
+    }
+
+}
