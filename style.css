@@ -1218,6 +1218,106 @@ h1, h2, h3, h4 {
     text-decoration: underline;
 }
 
+/* Eventa Footer Branding Badge */
+.eventa-badge {
+    margin-top: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.85rem;
+}
+
+.eventa-badge-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    user-select: none;
+}
+
+.eventa-made-by {
+    font-family: var(--font-primary);
+    font-size: 0.88rem;
+    font-weight: 400;
+    color: var(--color-bronze-light);
+    letter-spacing: 0.02em;
+}
+
+.eventa-sparkle {
+    color: var(--color-gold);
+    font-size: 0.72rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.eventa-brand-name {
+    font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+    font-size: 1.25rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    color: var(--color-bronze);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+.eventa-brand-name:hover {
+    color: var(--color-gold);
+}
+
+.eventa-badge-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+.eventa-pill-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.42rem 1.2rem;
+    background-color: var(--color-ivory);
+    border: 1px solid rgba(197, 168, 128, 0.45);
+    border-radius: 9999px;
+    color: var(--color-bronze);
+    font-family: var(--font-primary);
+    font-size: 0.82rem;
+    font-weight: 400;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(62, 32, 19, 0.04);
+    transition: background-color var(--transition-fast),
+                border-color var(--transition-fast),
+                box-shadow var(--transition-fast),
+                transform var(--transition-fast);
+}
+
+.eventa-pill-btn:hover {
+    background-color: var(--color-white);
+    border-color: var(--color-gold);
+    color: var(--color-bronze);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(197, 168, 128, 0.28);
+}
+
+.eventa-pill-btn:active {
+    transform: translateY(0);
+}
+
+.eventa-btn-icon {
+    flex-shrink: 0;
+    display: inline-block;
+}
+
+.eventa-button-dot {
+    color: var(--color-gold);
+    font-size: 0.85rem;
+    opacity: 0.5;
+    user-select: none;
+}
+
 /* ==========================================================================
    7. SCROLL REVEALS & MOTION
    ========================================================================== */
@@ -1587,4 +1687,12 @@ h1, h2, h3, h4 {
         font-size: 2.25rem;
     }
 
+    .eventa-badge {
+        gap: 0.75rem;
+    }
+
+    .eventa-pill-btn {
+        padding: 0.38rem 1.05rem;
+        font-size: 0.78rem;
+    }
 }
